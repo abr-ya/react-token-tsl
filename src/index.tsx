@@ -14,6 +14,8 @@ import rootSaga from './rootSaga';
 import {StateType} from 'typesafe-actions';
 import createRootReducer from './reducers/rootReducer';
 
+import {initializeAxios} from './token/fetch';
+
 const sagaMiddleware = createSagaMiddleware();
 const rootReducer = createRootReducer();
 export type RootState = StateType<typeof rootReducer>;
@@ -27,6 +29,9 @@ export const store = createStore(
 		),
 	),
 );
+
+export const dispatchSomething = (action: any) => {store.dispatch(action);};
+export const fetches = () => initializeAxios(store.getState(), dispatchSomething);
 
 sagaMiddleware.run(rootSaga);
 

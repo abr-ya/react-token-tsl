@@ -3,6 +3,8 @@ import styles from './app.module.scss';
 import {IApp} from './interfaces';
 import Loader from './components/Loader/Loader';
 
+import {requestUserData} from './api/km';
+
 const App = ({
 	requestProductsSaga,
 	loading,
@@ -10,6 +12,14 @@ const App = ({
 }: IApp) => {
 	useEffect(() => {
 		requestProductsSaga();
+
+		requestUserData()
+		.then(response => {
+			console.log(response);
+		})
+		.catch(error => {
+			console.log(error);
+		});
 	// eslint-disable-next-line
 	}, []);
 
