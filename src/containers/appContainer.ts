@@ -1,6 +1,7 @@
 import App from '../App';
 import {connect} from 'react-redux';
 import {showLoading, hideLoading, requestProductsSaga, addToCart, delFromCart} from '../actions/productActions';
+import {requestUserSaga} from '../token/actionsAuth';
 
 import {RootState} from '../index';
 
@@ -16,6 +17,7 @@ const mapDispatchToProps = {
 	requestProductsSaga,
 	addToCart,
 	delFromCart,
+	requestUserSaga,
 };
 
 export default connect(

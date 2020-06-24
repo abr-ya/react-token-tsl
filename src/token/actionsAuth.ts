@@ -2,6 +2,8 @@ import {createCustomAction, createAction} from 'typesafe-actions';
 import {authorizationActionTypes} from './constants';
 import {userActionTypes} from './constantsUser';
 
+interface IPalette {[key: string]: string;}
+
 export const toggleIsPennding = createAction(
 	authorizationActionTypes.TOGGLE_ISPENNDING,
 )();
@@ -30,11 +32,6 @@ export const getLocalRefreshTokenSaga = createAction(
 	authorizationActionTypes.GET_LOCAL_REFRESH_TOKEN_SAGA,
 )();
 
-// export const getAccessTokenSaga = createCustomAction(
-// 	authorizationActionTypes.GET_ACCESS_TOKEN_SAGA,
-// 	(refreshToken: string) => ({refreshToken}),
-// );
-
 export const authenticateWithLoginAndPasswordSaga = createCustomAction(
 	authorizationActionTypes.AUTHENTICATE_WITH_LOGIN_AND_PASSWORD_SAGA,
 	// tslint:disable-next-line: no-shadowed-variable
@@ -52,4 +49,15 @@ export const sendSmsCodeSaga = createCustomAction(
 //////////////////////
 export const login = createAction(userActionTypes.LOGIN)();
 export const logout = createAction(userActionTypes.LOGOUT)();
+
+export const requestUserSaga = createAction(userActionTypes.REQUEST_USER_SAGA)();
+
+export const setUserPalette = createCustomAction(userActionTypes.SET_USER_PALETTE,
+	(palette: IPalette) => ({palette}));
+
+export const setUserAgreement = createCustomAction(userActionTypes.SET_USER_AGREEMENT,
+	(agreement: any) => ({agreement}));
+
+export const setUserNewAgr = createCustomAction(userActionTypes.SET_USER_PRICE_AGR,
+	(agreement: any) => ({agreement}));
 //////////////////////

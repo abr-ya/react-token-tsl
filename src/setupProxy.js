@@ -1,4 +1,3 @@
-//const proxy = require('http-proxy-middleware');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 module.exports = (app) => {
 	app.use(
@@ -13,7 +12,7 @@ module.exports = (app) => {
 	app.use(
 		'/auth',
 		createProxyMiddleware({
-			target: 'http://stage.km-client.unicorn.km-union.ru/api/v1/profile/',
+			target: 'http://stage.km-client.unicorn.km-union.ru/api/v1/auth/',
 			pathRewrite: { '^/auth': '' },
 			changeOrigin: true,
 			secure: false,

@@ -6,4 +6,5 @@ export interface IApp {
 	delFromCart: (id: number) => void;
 	loading: boolean;
 	data?: any[];
+	requestUserSaga: () => void;
 }

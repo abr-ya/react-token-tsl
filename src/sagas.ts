@@ -5,6 +5,7 @@ import {productActionTypes} from './actions/productActionTypes';
 //import {RootState} from 'main';
 
 function* requestProductsSaga(action: ReturnType<typeof productActions.requestProductsSaga>) {
+	console.log('requestProductsSaga');
 	try {
 		yield put(productActions.showLoading());
 		const response = yield call(api.requestProducts);
