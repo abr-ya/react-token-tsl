@@ -17,16 +17,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
-    "plugins": [
-      {
-        "name": "typescript-tslint-plugin",
-        "alwaysShowRuleFailuresAsWarnings": false,
-        "ignoreDefinitionFiles": true,
-        "configFile": "../tslint.json",
-        "suppressWhileTypeErrorsPresent": false
-      }
-    ]
+    "jsx": "react"
   },
   "include": [
     "src"
