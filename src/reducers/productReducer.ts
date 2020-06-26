@@ -29,7 +29,7 @@ export default (
 		case getType(actions.hideLoading):
 			return {
 				...state,
-				loading: action.data,
+				loading: false,
 			};
 		case getType(actions.setProducts):
 			return {

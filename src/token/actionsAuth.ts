@@ -2,7 +2,7 @@ import {createCustomAction, createAction} from 'typesafe-actions';
 import {authorizationActionTypes} from './constants';
 import {userActionTypes} from './constantsUser';
 
-interface IPalette {[key: string]: string;}
+export interface IPalette {[key: string]: string;}
 
 export const toggleIsPennding = createAction(
 	authorizationActionTypes.TOGGLE_ISPENNDING,

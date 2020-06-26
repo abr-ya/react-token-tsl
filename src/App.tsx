@@ -7,13 +7,13 @@ import {Button} from 'react-bootstrap';
 import {requestUserData} from './api/km';
 
 const App = ({
-	requestProductsSaga,
+	//requestProductsSaga, // сейчас это данные с sw-api
 	loading,
 	addToCart, delFromCart,
 	requestUserSaga,
 }: IApp) => {
 	useEffect(() => {
-		requestProductsSaga();
+		//requestProductsSaga();
 		requestUserSaga();
 	// eslint-disable-next-line
 	}, []);
@@ -45,7 +45,7 @@ const App = ({
 
 	return (
 		<div className={mainClasses.join(' ')}>
-			<h1>React-ts-redux-saga-tslint-bs</h1>
+			<h1>React-ts-redux-saga-bs</h1>
 			<hr/>
 				{loading
 					? <Loader/>

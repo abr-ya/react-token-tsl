@@ -11,7 +11,7 @@ function* requestProductsSaga(action: ReturnType<typeof productActions.requestPr
 		const response = yield call(api.requestProducts);
 		console.log('data: ', response.data);
 		yield put(productActions.setProducts(response.data));
-		yield put(productActions.hideLoading(false));
+		yield put(productActions.hideLoading());
 	} catch (error) {
 		console.error(error);
 	}

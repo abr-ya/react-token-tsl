@@ -1,11 +1,14 @@
 import {takeLatest, call, put, select} from 'redux-saga/effects';
 import {userActionTypes} from './constantsUser';
-import * as userAction from './actionsAuth';
-import {requestUserPalette, defaultUserPalette} from '../api/km'; //requestUserAgreements
+import {setUserPalette, setUserAgreement, setUserNewAgr} from './actionsAuth';
+import {requestUserPalette, defaultUserPalette, requestUserAgreements} from '../api/km';
 import {RootState} from '../index';
 import {getLocalRefreshTokenSaga} from './authSagas';
+import {showLoading, hideLoading} from '../actions/productActions';
 
 function* requestUserSaga() {
+	yield put(showLoading());
+
 	console.log('requestUserSaga');
 	// тут сага вызывается напрямую
 	yield getLocalRefreshTokenSaga();
@@ -16,23 +19,25 @@ function* requestUserSaga() {
 		if (!!refreshToken) {
 			const response = yield call(requestUserPalette);
 			if (response.status === 200) {
-				yield put(userAction.setUserPalette(response.data));
+				yield put(setUserPalette(response.data));
 			}
 		} else {
-			yield put(userAction.setUserPalette(defaultUserPalette));
+			yield put(setUserPalette(defaultUserPalette));
 		}
 	} catch (error) {
-		yield put(userAction.setUserPalette(defaultUserPalette));
+		yield put(setUserPalette(defaultUserPalette));
 	}
 
-	// try {
-	// 	const respAgr = yield call(requestUserAgreements);
-	// 	const agreement = yield respAgr.data.data.find((item: any) => item.is_default);
-	// 	yield put(userAction.setUserAgreement(agreement));
-	// 	yield put(userAction.setUserNewAgr(agreement));
-	// } catch (error) {
-	// 	console.log('requestUserAgreements', error);
-	// }
+	yield put(hideLoading());
+
+	try {
+		const respAgr = yield call(requestUserAgreements);
+		const agreement = yield respAgr.data.data.find((item: any) => item.is_default);
+		yield put(setUserAgreement(agreement));
+		yield put(setUserNewAgr(agreement));
+	} catch (error) {
+		console.log('requestUserAgreements', error);
+	}
 }
 
 export default function* watchCommonLayout() {
