@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
+import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import styles from './app.module.scss';
 import {IApp} from './interfaces';
+import Nav from './components/Nav/Nav';
 import Loader from './components/Loader/Loader';
-import {Button} from 'react-bootstrap';
-
-import {requestUserData} from './api/km';
+import {Home, About} from './pages/';
 
 const App = ({
 	//requestProductsSaga, // сейчас это данные с sw-api
@@ -19,65 +19,37 @@ const App = ({
 	}, []);
 
 	const mainClasses = [styles.app, 'container'];
-	const leftClasses = [styles.left, 'col-md-8'];
-	const rightClasses = [styles.right, 'col-md-4'];
 
-	const handleAdd = (id: number) => {
-		console.log('handleAdd', id);
-		addToCart(id);
-	};
+	const title = "Token Test App";
+	const links = [
+		{link: "/", name: "Главная", exact: true,},
+		//{link: "/grid1", name: "Grid1", exact: true,},
+		//{link: "/grid2", name: "Grid2", exact: true,},
+		//{link: "/form", name: "Form", exact: true,},
+		{link: "/about", name: "About", exact: true,},
+	];
 
-	const handleRemove = (id: number) => {
-		console.log('handleRemove', id);
-		delFromCart(id);
-	};
-
-	const handleGet1 = () => {
-		console.log('GetUserData:');
-		requestUserData()
-		.then(response => {
-			console.log(response.data);
-		})
-		.catch(error => {
-			console.log(error);
-		});
-	};
+	const cartHandlers = {addToCart, delFromCart};
 
 	return (
-		<div className={mainClasses.join(' ')}>
-			<h1>React-ts-redux-saga-bs</h1>
-			<hr/>
+		<BrowserRouter basename="/">
+			<div className="container">
+				<Nav title={title} links={links} />
+			</div>
+			<div className={mainClasses.join(' ')}>
 				{loading
 					? <Loader/>
-					: (
-					<div className='row'>
-						<div className={leftClasses.join(' ')}>
-							Главная панель
-						</div>
-						<div className={rightClasses.join(' ')}>
-							Боковая панель
-							<div className='mt-3'>
-								<h3>Для теста Ридакс</h3>
-								<Button onClick={() => handleAdd(1)} style={{marginRight: '10px'}}>
-									Add to id1
-								</Button>
-								<Button onClick={() => handleRemove(1)}>
-									Del id1
-								</Button>
-
-								<h3>Для теста запросов</h3>
-								<Button onClick={() => handleGet1()} style={{marginRight: '10px'}}>
-									User
-								</Button>
-								<Button onClick={() => false}>
-									Просто кнопка
-								</Button>
-							</div>
-						</div>
-					</div>
-					)
+					: (<Switch>
+						<Route path="/" exact component={() => <Home cartHandlers={cartHandlers} />} />
+						{/* <Route path="/grid1" component={() => (<Grid1 columns={columns} rows={rows} />)} />
+						<Route path="/grid2" component={() => (<Grid2 columns={columns} rows={rows} />)} />
+						<Route path="/form" component={Form} /> */}
+						<Route path="/about" component={About} />
+						<Redirect to="/" />
+					</Switch>)
 				}
-		</div>
+			</div>
+		</BrowserRouter>
 	);
 };
 
