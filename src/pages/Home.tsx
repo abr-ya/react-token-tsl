@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button} from 'react-bootstrap';
+//import Button from 'devextreme-react/button'; // тест подключения
 import {requestUserData} from '../api/km';
 import styles from '../app.module.scss';
 
